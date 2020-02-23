@@ -1,5 +1,9 @@
-const grpc = require('grpc')
-const PROTO_PATH = './person.proto'
-const PersonService = grpc.load(PROTO_PATH).PersonService
-const client = new PersonService('localhost:50051', grpc.credentials.createInsecure())
-module.exports = client
+const PersonServiceStub = require('./person-service-stub')
+PersonServiceStub.list({}, (error, persons) => {
+    if (!error) {
+        console.log('successfully fetched persons')
+        console.log(persons)
+    } else {
+        console.error(error)
+    }
+})
